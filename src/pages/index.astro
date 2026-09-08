@@ -1,0 +1,651 @@
+---
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WaitlistForm from '../components/WaitlistForm.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const featuredPosts = posts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+const getPostUrl = (id: string) => `${baseUrl}/blog/${id.replace(/\.(md|mdx)$/, '')}`;
+
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-IN', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
+}
+---
+
+<BaseLayout
+  title="INR Finance Compass — Sovereign, Private Personal Finance OS for India"
+  description="A sovereign personal finance OS engineered for Indian realities. Zero surveillance, zero data harvesting, anchor-aware ledger integrity, client-side statement parsing, and self-hosted on your own machine."
+>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden pt-12 sm:pt-20 pb-16 sm:pb-24 border-b border-zinc-200 dark:border-zinc-800">
+    <!-- Subtle Background Glow -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-emerald-500/10 dark:bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-6 relative z-10">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-100/70 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300/50 dark:border-emerald-800/60 shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>Sovereign Wealth OS &middot; Engineered for Indian Realities</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 font-serif-editorial leading-[1.1] max-w-4xl mx-auto">
+        Your financial life is <span class="underline decoration-emerald-500 decoration-4 underline-offset-8">not</span> a lead generation funnel.
+      </h1>
+
+      <!-- Value Hook Subtitle -->
+      <p class="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+        The private, self-hosted personal finance OS designed for India. Zero telemetry, client-side statement parsing, anchor-aware ledger math, and native tracking for EPF, PPF, NPS, SGBs, and mutual funds.
+      </p>
+
+      <!-- Primary Waitlist Email Capture -->
+      <div id="waitlist" class="pt-4 flex flex-col items-center">
+        <WaitlistForm variant="hero" id="hero-waitlist" source="hero" />
+      </div>
+
+      <!-- Sovereign Invariants Badges -->
+      <div class="pt-6 flex flex-wrap justify-center items-center gap-6 sm:gap-10 text-xs font-medium text-zinc-600 dark:text-zinc-400">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>0 KB Data Telemetry</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>100% Client-Side PDF Parsing</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Mathematical Anchor Balances</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Self-Hosted on Your Server</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Preview / Mock Dashboard -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 -mt-8 sm:-mt-12 relative z-20 mb-24">
+    <div class="rounded-3xl border border-zinc-200/90 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 shadow-2xl p-4 sm:p-7 backdrop-blur-xl transition-all">
+      <!-- Browser Mock Window Bar -->
+      <div class="flex items-center justify-between pb-4 mb-5 border-b border-zinc-100 dark:border-zinc-800">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-red-400/80"></div>
+          <div class="w-3 h-3 rounded-full bg-amber-400/80"></div>
+          <div class="w-3 h-3 rounded-full bg-emerald-400/80"></div>
+          <span class="text-xs font-mono text-zinc-400 ml-2">app.financecompass.in &middot; sovereign local session</span>
+        </div>
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-mono bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/40">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <span>Anchor Ledger: Reconciled to ₹0.00</span>
+        </div>
+      </div>
+
+      <!-- Dashboard Grid Preview -->
+      <div class="space-y-6">
+        <!-- Top Metrics Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+            <span class="text-xs uppercase font-medium text-zinc-500 dark:text-zinc-400 tracking-wider">Total True Net Worth</span>
+            <div class="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-1">₹68,42,180</div>
+            <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400 mt-1 inline-block">↑ +₹1,42,850 this month</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+            <span class="text-xs uppercase font-medium text-zinc-500 dark:text-zinc-400 tracking-wider">Sovereign Debt Reserves</span>
+            <div class="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-1">₹23,30,000</div>
+            <span class="text-xs text-zinc-500 dark:text-zinc-400 mt-1 inline-block">EPF (8.25%) + PPF (7.1%) + SGB</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+            <span class="text-xs uppercase font-medium text-zinc-500 dark:text-zinc-400 tracking-wider">Equities & Mutual Funds</span>
+            <div class="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-1">₹38,32,180</div>
+            <span class="text-xs text-zinc-500 dark:text-zinc-400 mt-1 inline-block">Imported from CAMS/KFintech CAS</span>
+          </div>
+        </div>
+
+        <!-- Indian Asset Distribution Bar -->
+        <div class="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800 space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-zinc-700 dark:text-zinc-300">Indian Asset Allocation Distribution</span>
+            <span class="text-zinc-500 font-mono">100% Consolidated</span>
+          </div>
+          <div class="h-3 w-full rounded-full bg-zinc-200 dark:bg-zinc-700 overflow-hidden flex">
+            <div class="h-full bg-emerald-600" style="width: 42%" title="Mutual Funds (42%)"></div>
+            <div class="h-full bg-blue-600" style="width: 24%" title="EPF + PPF (24%)"></div>
+            <div class="h-full bg-amber-500" style="width: 14%" title="Sovereign Gold Bonds (14%)"></div>
+            <div class="h-full bg-purple-600" style="width: 10%" title="NPS Tier-1 (10%)"></div>
+            <div class="h-full bg-teal-500" style="width: 10%" title="Liquid Bank Accounts (10%)"></div>
+          </div>
+          <div class="flex flex-wrap gap-4 text-xs text-zinc-600 dark:text-zinc-400 pt-1">
+            <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-600"></span><span>Mutual Funds (42%)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-blue-600"></span><span>EPF + PPF (24%)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span><span>SGB Tranches (14%)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-purple-600"></span><span>NPS Tier-1 (10%)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-teal-500"></span><span>Bank Savings (10%)</span></div>
+          </div>
+        </div>
+
+        <!-- Reconciled Passbook Snippet -->
+        <div class="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800 space-y-2">
+          <div class="flex items-center justify-between text-xs pb-2 border-b border-zinc-200 dark:border-zinc-700">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-zinc-800 dark:text-zinc-200">Recent Passbook Ledger (HDFC Salary Account)</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">Anchor Verified</span>
+            </div>
+            <span class="font-mono text-zinc-500 text-[11px]">Interval: 01 Aug - 31 Aug</span>
+          </div>
+
+          <div class="space-y-1.5 text-xs">
+            <div class="flex items-center justify-between py-1 border-b border-zinc-100 dark:border-zinc-800/60">
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-zinc-400">31 Aug</span>
+                <span class="font-medium text-zinc-800 dark:text-zinc-200">Verified Closing Anchor (Bank Statement)</span>
+              </div>
+              <span class="font-mono font-bold text-zinc-900 dark:text-zinc-100">₹2,84,150.00</span>
+            </div>
+
+            <div class="flex items-center justify-between py-1 border-b border-zinc-100 dark:border-zinc-800/60">
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-zinc-400">28 Aug</span>
+                <span class="text-zinc-700 dark:text-zinc-300">Monthly SIP — Nifty 50 Index Fund Direct Growth</span>
+              </div>
+              <span class="font-mono font-semibold text-red-600 dark:text-red-400">-₹25,000.00</span>
+            </div>
+
+            <div class="flex items-center justify-between py-1 border-b border-zinc-100 dark:border-zinc-800/60">
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-zinc-400">01 Aug</span>
+                <span class="text-zinc-700 dark:text-zinc-300">Salary Credit (Net Pay after EPF/TDS)</span>
+              </div>
+              <span class="font-mono font-semibold text-emerald-600 dark:text-emerald-400">+₹1,65,000.00</span>
+            </div>
+
+            <div class="flex items-center justify-between py-1">
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-zinc-400">01 Aug</span>
+                <span class="font-medium text-zinc-800 dark:text-zinc-200">Verified Opening Anchor</span>
+              </div>
+              <span class="font-mono font-bold text-zinc-900 dark:text-zinc-100">₹1,44,150.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Problem Section -->
+  <section class="py-20 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-100/50 dark:bg-zinc-900/30">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="max-w-2xl mb-14 space-y-3">
+        <span class="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-semibold">
+          The Broken Reality
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+          Modern fintech was built to harvest you, not empower you.
+        </h2>
+        <p class="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          Popular Indian finance apps give away free net worth dashboards because your transaction graph is their primary monetization asset.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-4">
+          <div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400 flex items-center justify-center font-bold">
+            ✕
+          </div>
+          <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            The Account Aggregator Trap
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Consenting to Account Aggregator (AA) streams your exact debit metadata to third-party databases. Within days, you receive targeted credit card sales calls, personal loan pushes, and insurance spam.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-4">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
+            ≈
+          </div>
+          <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            Silent Balance Drift
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Ordinary spreadsheets rely on unanchored cumulative sums. A single missed quarterly debit card AMC fee (₹236) permanently ruins your ledger accuracy for years until you manually forge a balancing entry.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-4">
+          <div class="w-10 h-10 rounded-xl bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 flex items-center justify-center font-bold">
+            🔒
+          </div>
+          <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            Cloud SaaS Hostage
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            When a fintech startup pivots, hikes subscription prices, or shuts down, your decade of financial categorization, historical net worth snapshots, and tax records disappear overnight.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Solution / Core Features Section -->
+  <section id="features" class="py-24 border-b border-zinc-200 dark:border-zinc-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="max-w-2xl mb-16 space-y-3">
+        <span class="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-semibold">
+          Sovereign Financial Engineering
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+          Designed for mathematical integrity and total privacy.
+        </h2>
+        <p class="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          Every component in INR Finance Compass is built to treat your personal balance sheet with formal institutional rigor.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="p-7 rounded-3xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 space-y-3 hover:border-emerald-500/40 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center font-bold">
+            ⚓
+          </div>
+          <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            Anchor-Aware Ledger Math
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Balances are locked to verified bank statement anchors. Reconciliation errors are mathematically bounded to the exact monthly billing interval, leaving all other periods pristine.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="p-7 rounded-3xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 space-y-3 hover:border-emerald-500/40 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center font-bold">
+            📄
+          </div>
+          <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            100% Client-Side Statement Parsing
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Drag-and-drop password-protected bank PDFs (HDFC, ICICI, SBI, Axis) and CAMS/KFintech eCAS. Your statements are parsed entirely inside your browser sandbox. No server upload.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="p-7 rounded-3xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 space-y-3 hover:border-emerald-500/40 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center font-bold">
+            🇮🇳
+          </div>
+          <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            Bespoke Indian Asset Engine
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Native modeling for EPF dual-ledger taxation (Section 10(11)/(12) ₹2.5L threshold), PPF compounding, NPS Tier-1 asset classes, and SGB semi-annual coupon payouts.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="p-7 rounded-3xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 space-y-3 hover:border-emerald-500/40 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center font-bold">
+            ⚖️
+          </div>
+          <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            Strict Double-Entry Invariants
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Every transaction belongs to an auditable source and destination. Inter-account transfers (e.g. Bank to Credit Card or Bank to Brokerage) never double-count expenses.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="p-7 rounded-3xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 space-y-3 hover:border-emerald-500/40 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center font-bold">
+            🗄️
+          </div>
+          <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            Bring-Your-Own-Database (BYOS)
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            You hold your PostgreSQL encryption keys. Connect your own private Supabase project or spin up a local PostgreSQL container. Complete data independence.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="p-7 rounded-3xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 space-y-3 hover:border-emerald-500/40 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center font-bold">
+            🚫
+          </div>
+          <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            Zero Telemetry & Ads
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            No Google Analytics, no Facebook Pixels, no loan recommendation engines. The software serves you and only you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ledger Math Deep Dive Section -->
+  <section id="ledger-math" class="py-20 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-900 text-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-4">
+          <span class="text-xs font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+            Mathematical Invariant
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight font-serif-editorial">
+            Why anchor ledgers make reconciliation mathematically deterministic.
+          </h2>
+          <p class="text-sm sm:text-base text-zinc-300 leading-relaxed">
+            In standard expense apps, if you miss a ₹17.70 SMS fee in May 2024, every balance calculated until December 2026 is wrong.
+          </p>
+          <p class="text-sm sm:text-base text-zinc-300 leading-relaxed">
+            With anchor-aware architecture, your bank statements act as cryptographic checkpoints. The equation balances to zero for each monthly cycle independently:
+          </p>
+
+          <div class="p-4 rounded-xl bg-zinc-800/90 border border-zinc-700/80 font-mono text-xs sm:text-sm text-emerald-300">
+            Anchor[k+1] == Anchor[k] + Σ (Deltas in interval)
+          </div>
+
+          <div class="pt-2">
+            <a
+              href={`${baseUrl}/blog/why-bank-balances-drift`}
+              class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
+            >
+              <span>Read the complete whitepaper guide</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14m-7-7 7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-zinc-950 border border-zinc-800 font-mono text-xs text-zinc-300 space-y-4 shadow-xl">
+          <div class="flex items-center justify-between text-zinc-500 border-b border-zinc-800 pb-3">
+            <span>AUDIT CHECKPOINT REPORT</span>
+            <span class="text-emerald-400 font-bold">STATUS: SEALED</span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span class="text-zinc-400">Anchor A0 (01 Jan):</span>
+              <span class="text-zinc-100 font-bold">₹1,50,000.00</span>
+            </div>
+            <div class="flex justify-between pl-3 text-zinc-400">
+              <span>+ Direct Deposits (Salary):</span>
+              <span class="text-emerald-400">+₹1,85,000.00</span>
+            </div>
+            <div class="flex justify-between pl-3 text-zinc-400">
+              <span>- Operating Debits (Rent, Card):</span>
+              <span class="text-red-400">-₹78,400.00</span>
+            </div>
+            <div class="flex justify-between pl-3 text-zinc-400">
+              <span>- Portfolio SIP Outflow:</span>
+              <span class="text-red-400">-₹40,000.00</span>
+            </div>
+            <div class="flex justify-between border-t border-zinc-800 pt-2 font-bold">
+              <span class="text-zinc-200">Derived Expected Balance:</span>
+              <span class="text-zinc-100">₹2,16,600.00</span>
+            </div>
+            <div class="flex justify-between font-bold">
+              <span class="text-zinc-200">Certified Anchor A1 (31 Jan):</span>
+              <span class="text-zinc-100">₹2,16,600.00</span>
+            </div>
+            <div class="flex justify-between border-t border-dashed border-zinc-800 pt-2 text-emerald-400 font-bold">
+              <span>Delta Invariant Drift:</span>
+              <span>₹0.00 (0.00%)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Self-Hosting Deployment Guide Section -->
+  <section id="self-hosting" class="py-24 border-b border-zinc-200 dark:border-zinc-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="max-w-2xl mb-14 space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100/70 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300/50 dark:border-emerald-800/60">
+          <span>Primary Deployment Model</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+          Self-Host on Your Own Machine or Private VPS.
+        </h2>
+        <p class="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          Instead of trusting a venture-backed cloud with your financial ledger, run INR Finance Compass locally or on your personal server. You maintain 100% database sovereignty.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-4">
+          <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">
+            1
+          </div>
+          <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            Clone the Core Repository
+          </h3>
+          <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Get the full audited source code of the personal finance client app:
+          </p>
+          <div class="p-3 rounded-xl bg-zinc-900 text-zinc-200 font-mono text-xs overflow-x-auto">
+            git clone https://github.com/OhYash/inr-finance-compass.git<br />
+            cd inr-finance-compass<br />
+            npm install
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-4">
+          <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">
+            2
+          </div>
+          <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            Configure Your Database
+          </h3>
+          <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Bring your own Supabase project (free tier) or spin up a local Supabase Docker instance:
+          </p>
+          <div class="p-3 rounded-xl bg-zinc-900 text-zinc-200 font-mono text-xs overflow-x-auto">
+            cp .env.example .env<br />
+            # Set your VITE_SUPABASE_URL<br />
+            # and VITE_SUPABASE_ANON_KEY
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-4">
+          <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">
+            3
+          </div>
+          <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            Run Locally or Deploy to VPS
+          </h3>
+          <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Launch your private web app locally or build a production container for your homelab/server:
+          </p>
+          <div class="p-3 rounded-xl bg-zinc-900 text-zinc-200 font-mono text-xs overflow-x-auto">
+            npm run dev<br />
+            # Or build static release:<br />
+            npm run build
+          </div>
+        </div>
+      </div>
+
+      <!-- Self-Hosting Guarantee Callout -->
+      <div class="mt-10 p-6 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <h4 class="text-sm font-bold text-emerald-900 dark:text-emerald-200">
+            Need production Docker Compose templates?
+          </h4>
+          <p class="text-xs text-emerald-800/80 dark:text-emerald-300/80">
+            Join the early access waitlist to receive pre-configured 1-command Docker Compose configs and migration scripts.
+          </p>
+        </div>
+        <a
+          href="#waitlist"
+          class="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white whitespace-nowrap"
+        >
+          Get Docker Guides
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Blog & Guides Section -->
+  <section class="py-24 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div class="space-y-2">
+          <span class="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-semibold">
+            The Sovereign Editorial
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+            Pragmatic Indian Wealth Guides
+          </h2>
+        </div>
+        <a
+          href={`${baseUrl}/blog`}
+          class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:gap-2.5 transition-all"
+        >
+          <span>View all guides</span>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14m-7-7 7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {featuredPosts.map((post) => (
+          <a
+            href={getPostUrl(post.id)}
+            class="group p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-emerald-500/40 dark:hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between"
+          >
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {formatDate(post.data.pubDate)}
+                </time>
+                {post.data.tags.length > 0 && (
+                  <span class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 font-medium text-[11px]">
+                    #{post.data.tags[0]}
+                  </span>
+                )}
+              </div>
+
+              <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors font-serif-editorial leading-snug">
+                {post.data.title}
+              </h3>
+
+              <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-3">
+                {post.data.description}
+              </p>
+            </div>
+
+            <div class="flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 pt-5">
+              <span>Read guide</span>
+              <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14m-7-7 7 7-7 7"/>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Comprehensive FAQ Section -->
+  <section id="faq" class="py-24 border-b border-zinc-200 dark:border-zinc-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-16 space-y-3">
+        <span class="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-semibold">
+          Architecture & Privacy
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+          Frequently Answered Questions
+        </h2>
+      </div>
+
+      <div class="space-y-6">
+        <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-2">
+          <h3 class="text-base font-bold text-zinc-900 dark:text-zinc-100">
+            How is INR Finance Compass different from apps like CRED, Fold, or Walnut?
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Conventional apps read your SMS inbox or use Account Aggregator (AA) APIs to pull bank balances, which are sent to their cloud servers to train credit models and push loans. INR Finance Compass has zero telemetry. It is completely open-source and self-hostable. Your bank statements are parsed client-side in your own browser, and data is stored only in your private PostgreSQL instance.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-2">
+          <h3 class="text-base font-bold text-zinc-900 dark:text-zinc-100">
+            How does client-side PDF parsing work without uploading my bank statements?
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            When you drag and drop a bank PDF (e.g. HDFC or ICICI) or a CAMS/KFintech CAS statement, a WebAssembly/JavaScript parser decrypts and extracts the rows directly inside your browser's memory sandbox. No PDF file or plaintext financial data ever leaves your computer or passes through an intermediary server.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-2">
+          <h3 class="text-base font-bold text-zinc-900 dark:text-zinc-100">
+            What is "Anchor Ledger Math" and why does it matter?
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Spreadsheets and simple apps derive your balance by continuously adding credits and debits ($\sum \Delta$). If one SMS charge or bank fee is omitted, every downstream calculation becomes inaccurate forever. In INR Finance Compass, verified bank statement closing balances act as immutable anchors. Any drift between consecutive anchors is mathematically isolated to that specific monthly interval, so your historical and future records remain flawless.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-2">
+          <h3 class="text-base font-bold text-zinc-900 dark:text-zinc-100">
+            Can I run this without paying for a server?
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Yes! You can run the entire frontend locally on your laptop using `npm run dev` and connect it to a free-tier Supabase PostgreSQL project. Alternatively, you can self-host Supabase via Docker on a home server, Raspberry Pi, or private VPS.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-2">
+          <h3 class="text-base font-bold text-zinc-900 dark:text-zinc-100">
+            How does the early-access waitlist work?
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            When you submit your email, we store your address via our private Resend email provider solely to notify you when self-hosting docker configurations, release builds, and new sovereign wealth guides drop. We will never sell your address, send promotional marketing for third-party loans, or spam you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Hero -->
+  <section class="py-24 text-center relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 space-y-6 relative z-10">
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+        Ready to take sovereign control of your balance sheet?
+      </h2>
+      <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
+        Join the waitlist to receive release alerts, Docker Compose deployment templates, and editorial Indian finance guides.
+      </p>
+      <div class="flex justify-center pt-2">
+        <WaitlistForm variant="hero" id="bottom-waitlist" source="bottom-hero" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

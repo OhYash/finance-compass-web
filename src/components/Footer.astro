@@ -1,0 +1,77 @@
+---
+// Footer.astro
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+const homeUrl = baseUrl || '/';
+const blogUrl = `${baseUrl}/blog`;
+const rssUrl = `${baseUrl}/rss.xml`;
+---
+
+<footer class="border-t border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950 text-zinc-600 dark:text-zinc-400 py-16 transition-colors">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-zinc-200 dark:border-zinc-800">
+      
+      <!-- Brand & Manifesto -->
+      <div class="md:col-span-2 space-y-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">
+            ₹
+          </div>
+          <span class="font-bold text-zinc-900 dark:text-zinc-100 text-base tracking-tight">
+            INR Finance Compass
+          </span>
+        </div>
+        <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 max-w-md">
+          A sovereign, private personal finance OS designed for Indian realities. Zero surveillance, zero credit card pitch notifications, client-side statement parsing, and anchor-aware ledger integrity.
+        </p>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-100/60 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/40">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>100% Self-Hostable &middot; Zero Data Harvesting</span>
+        </div>
+      </div>
+
+      <!-- Navigation & Guides -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-900 dark:text-zinc-200">
+          Platform
+        </h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href={`${homeUrl}#features`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Core Features</a></li>
+          <li><a href={`${homeUrl}#ledger-math`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Anchor Ledger Math</a></li>
+          <li><a href={`${homeUrl}#self-hosting`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Self-Hosting Guide</a></li>
+          <li><a href={`${homeUrl}#faq`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Architecture FAQ</a></li>
+          <li><a href="https://github.com/OhYash/inr-finance-compass" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">GitHub Repository</a></li>
+        </ul>
+      </div>
+
+      <!-- Blog & Editorial Wedge -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-900 dark:text-zinc-200">
+          Sovereign Guides
+        </h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href={blogUrl} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">All Articles & Deep Dives</a></li>
+          <li><a href={`${blogUrl}/epf-vs-ppf-compounding`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">EPF vs PPF Compounding Math</a></li>
+          <li><a href={`${blogUrl}/why-bank-balances-drift`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Why Bank Balances Drift</a></li>
+          <li><a href={`${blogUrl}/sovereign-indian-wealth-tracking`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Indian Asset Allocation Guide</a></li>
+          <li><a href={rssUrl} class="inline-flex items-center gap-1.5 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+            <svg class="w-3.5 h-3.5 text-amber-500" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/>
+            </svg>
+            RSS 2.0 Feed
+          </a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+      <p>
+        &copy; {new Date().getFullYear()} INR Finance Compass. Licensed under MIT / Sovereign Architecture.
+      </p>
+      <p class="flex items-center gap-1 text-zinc-500">
+        <span>Engineered for sovereign Indian personal wealth builders.</span>
+      </p>
+    </div>
+  </div>
+</footer>

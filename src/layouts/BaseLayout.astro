@@ -1,0 +1,25 @@
+---
+// BaseLayout.astro
+import '../styles/global.css';
+import SeoHead, { type Props as SeoProps } from '../components/SeoHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+export interface Props extends SeoProps {
+  className?: string;
+}
+
+const { className = '', ...seoProps } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <SeoHead {...seoProps} />
+  <body class="min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 selection:bg-emerald-500 selection:text-white transition-colors duration-200">
+    <Header />
+    <main class={`flex-1 ${className}`}>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

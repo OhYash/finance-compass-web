@@ -1,0 +1,155 @@
+---
+// src/pages/blog/index.astro
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WaitlistForm from '../../components/WaitlistForm.astro';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const featuredPost = sortedPosts.find((p) => p.data.featured) || sortedPosts[0];
+const otherPosts = sortedPosts.filter((p) => p.id !== featuredPost?.id);
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+const getPostUrl = (id: string) => `${baseUrl}/blog/${id.replace(/\.(md|mdx)$/, '')}`;
+
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-IN', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
+}
+---
+
+<BaseLayout
+  title="Sovereign Indian Personal Finance Blog & Wealth Guides"
+  description="Pragmatic Indian personal finance deep dives with zero surveillance, zero fluff, and mathematical precision. EPF, PPF, SGBs, mutual funds, and anchor-aware ledgers."
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+    <!-- Header -->
+    <div class="max-w-2xl mb-14 space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100/70 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300/40 dark:border-emerald-800/60">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>Editorial &middot; Sovereign Indian Finance</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 font-serif-editorial">
+        The Sovereign Ledger
+      </h1>
+      <p class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+        Pragmatic, zero-BS analysis of Indian personal wealth, statutory tax thresholds, ledger mechanics, and private self-hosting.
+      </p>
+    </div>
+
+    <!-- Featured Post Hero Card -->
+    {featuredPost && (
+      <div class="mb-16">
+        <a
+          href={getPostUrl(featuredPost.id)}
+          class="block group p-8 sm:p-10 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-xl hover:border-emerald-500/50 dark:hover:border-emerald-500/50 transition-all duration-300 relative overflow-hidden"
+        >
+          <div class="absolute -right-16 -top-16 w-64 h-64 bg-emerald-500/10 dark:bg-emerald-500/5 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-500"></div>
+
+          <div class="relative z-10 space-y-4">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-600 text-white shadow-xs">
+                Featured Guide
+              </span>
+              <span class="text-xs text-zinc-500 dark:text-zinc-400">
+                {formatDate(featuredPost.data.pubDate)}
+              </span>
+              <span>&middot;</span>
+              <span class="text-xs text-zinc-500 dark:text-zinc-400">
+                {featuredPost.data.author}
+              </span>
+            </div>
+
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors font-serif-editorial tracking-tight">
+              {featuredPost.data.title}
+            </h2>
+
+            <p class="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-3xl">
+              {featuredPost.data.description}
+            </p>
+
+            <div class="flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 group-hover:gap-3 transition-all pt-2">
+              <span>Read Full Deep Dive</span>
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14m-7-7 7 7-7 7"/>
+              </svg>
+            </div>
+          </div>
+        </a>
+      </div>
+    )}
+
+    <!-- Articles Grid -->
+    <div class="space-y-6">
+      <div class="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4">
+        <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
+          All Articles & Deep Dives
+        </h3>
+        <span class="text-xs text-zinc-500 font-mono">
+          {sortedPosts.length} Guides Available
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {otherPosts.map((post) => (
+          <a
+            href={getPostUrl(post.id)}
+            class="group p-6 sm:p-7 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-emerald-500/40 dark:hover:border-emerald-500/40 hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+          >
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {formatDate(post.data.pubDate)}
+                </time>
+                {post.data.tags.length > 0 && (
+                  <span class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 font-medium">
+                    #{post.data.tags[0]}
+                  </span>
+                )}
+              </div>
+
+              <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors font-serif-editorial leading-snug">
+                {post.data.title}
+              </h3>
+
+              <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-3">
+                {post.data.description}
+              </p>
+            </div>
+
+            <div class="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 pt-5 group-hover:gap-2.5 transition-all">
+              <span>Read article</span>
+              <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14m-7-7 7 7-7 7"/>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Newsletter & Early Access Capture Section -->
+    <div class="mt-20 p-8 sm:p-12 rounded-3xl bg-zinc-900 text-white relative overflow-hidden border border-zinc-800">
+      <div class="relative z-10 max-w-xl space-y-4">
+        <span class="text-xs font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+          Stay Ahead of the Indian Tax Curve
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-bold tracking-tight">
+          Never miss a sovereign deep dive or release update.
+        </h3>
+        <p class="text-sm text-zinc-300 leading-relaxed">
+          Get practical guides on Indian financial math, tax law changes, and self-hosted releases sent directly to your inbox. Zero spam, zero sponsored card pitches.
+        </p>
+        <div class="pt-2">
+          <WaitlistForm variant="inline" id="blog-index-waitlist" source="blog-index" />
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

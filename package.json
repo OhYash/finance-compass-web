@@ -1,0 +1,40 @@
+{
+  "name": "finance-compass-web",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "build:gh-pages": "GITHUB_PAGES=true astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^8.0.0",
+    "@astrojs/react": "^6.0.5",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "astro": "^7.3.1",
+    "lucide-react": "^1.42.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "resend": "^6.26.0",
+    "tailwindcss": "^4.3.3"
+  },
+  "allowScripts": {
+    "esbuild": true
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
+  }
+}

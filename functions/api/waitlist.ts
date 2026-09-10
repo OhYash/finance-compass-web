@@ -1,6 +1,7 @@
 // Cloudflare Pages Function: POST /api/waitlist
 interface Env {
   RESEND_API_KEY?: string;
+  RESEND_SEGMENT_ID?: string;
   RESEND_AUDIENCE_ID?: string;
   RESEND_FROM_EMAIL?: string;
   NOTIFY_ADMIN_EMAIL?: string;
@@ -59,23 +60,48 @@ export const onRequestPost = async (context: { request: Request; env: Env }) => 
       );
     }
 
-    // 1. Add to Resend Audience if configured
-    if (context.env.RESEND_AUDIENCE_ID) {
-      try {
-        await fetch(`https://api.resend.com/audiences/${context.env.RESEND_AUDIENCE_ID}/contacts`, {
+    // 1. Create Global Contact and attach to Segment if configured
+    const segmentId = context.env.RESEND_SEGMENT_ID || context.env.RESEND_AUDIENCE_ID;
+    try {
+      const contactRes = await fetch('https://api.resend.com/contacts', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+          'User-Agent': 'finance-compass-web/1.0',
+        },
+        body: JSON.stringify({
+          email,
+          unsubscribed: false,
+        }),
+      });
+
+      if (contactRes.ok) {
+        const contactData = (await contactRes.json().catch(() => ({}))) as { id?: string };
+        if (segmentId && contactData?.id) {
+          await fetch(`https://api.resend.com/contacts/${contactData.id}/segments`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+              'Content-Type': 'application/json',
+              'User-Agent': 'finance-compass-web/1.0',
+            },
+            body: JSON.stringify({ segmentId }),
+          }).catch((segErr) => console.warn('Failed to add contact to segment:', segErr));
+        }
+      } else if (segmentId) {
+        // Fallback for accounts on legacy audiences endpoint
+        await fetch(`https://api.resend.com/audiences/${segmentId}/contacts`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${apiKey}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            email,
-            unsubscribed: false,
-          }),
-        });
-      } catch (audErr) {
-        console.warn('Failed to add contact to Resend Audience:', audErr);
+          body: JSON.stringify({ email, unsubscribed: false }),
+        }).catch(() => {});
       }
+    } catch (contactErr) {
+      console.warn('Resend contact handling warning:', contactErr);
     }
 
     // 2. Send welcome email to subscriber (defaults to onboarding@resend.dev if no custom domain yet)

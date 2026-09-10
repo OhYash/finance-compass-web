@@ -78,8 +78,8 @@ export const onRequestPost = async (context: { request: Request; env: Env }) => 
       }
     }
 
-    // 2. Send welcome email to subscriber
-    const fromEmail = context.env.RESEND_FROM_EMAIL || 'INR Finance Compass <waitlist@financecompass.in>';
+    // 2. Send welcome email to subscriber (defaults to onboarding@resend.dev if no custom domain yet)
+    const fromEmail = context.env.RESEND_FROM_EMAIL || 'INR Finance Compass <onboarding@resend.dev>';
     const emailRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {

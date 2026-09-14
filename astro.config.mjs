@@ -13,6 +13,10 @@ export default defineConfig({
     ? 'https://ohyash.github.io'
     : (process.env.PUBLIC_SITE_URL || 'https://finance-compass-web.pages.dev'),
   base: isGithubPages ? '/finance-compass-web' : '/',
+  server: {
+    host: true,
+    allowedHosts: ['ketopi'],
+  },
   output: 'static',
   vite: {
     plugins: [tailwindcss()],

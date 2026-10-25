@@ -1,4 +1,4 @@
-# Instructions: INR Finance Compass Website & Sovereign Blog
+# Instructions: paise fit Website & Financial Fitness Blog
 
 This guide outlines setup, local development, email integration with Resend, deployment to Cloudflare Pages or GitHub Pages, and editorial blog authoring.
 
@@ -90,7 +90,7 @@ The repository includes a ready-to-use GitHub Actions workflow at [`.github/work
 
 ### Step 2: (Optional) Set up an Audience List
 1. In Resend, go to **Audiences** > **Add Audience**.
-2. Name it (e.g. `INR Finance Compass Waitlist`).
+2. Name it (e.g. `paise fit Waitlist`).
 3. Copy the `Audience ID` (e.g. `d3b2...`).
 
 ### Step 3: Configure Environment Variables
@@ -99,10 +99,10 @@ Add these environment variables in your Cloudflare Pages dashboard (under **Sett
 | Variable | Description | Example |
 | :--- | :--- | :--- |
 | `RESEND_API_KEY` | Secret API key from Resend | `re_123456789...` |
-| `RESEND_FROM_EMAIL` | Verified sender email address | `INR Finance Compass <waitlist@financecompass.in>` |
+| `RESEND_FROM_EMAIL` | Verified sender email address | `paise fit <waitlist@paise.fit>` |
 | `RESEND_AUDIENCE_ID` | *(Optional)* Audience list ID | `d3b2ca48-...` |
 | `NOTIFY_ADMIN_EMAIL` | *(Optional)* Admin email to receive alerts on new signups | `you@yourdomain.com` |
-| `PUBLIC_SITE_URL` | Canonical website base URL | `https://financecompass.in` |
+| `PUBLIC_SITE_URL` | Canonical website base URL | `https://paise.fit` |
 
 *When `RESEND_API_KEY` is not present (such as in local preview), the waitlist endpoint automatically logs a notice and returns a mock success response so forms can be visually tested without errors.*
 
@@ -139,7 +139,7 @@ Your editorial content goes here. You can write standard Markdown with headers, 
 - `pubDate` *(date, required)*: Publishing date (`YYYY-MM-DD`).
 - `updatedDate` *(date, optional)*: Date of last major revision.
 - `tags` *(string[], default: `[]`)*: Category badges.
-- `author` *(string, default: `'INR Finance Compass Team'`)*: Author attribution.
+- `author` *(string, default: `'paise fit Team'`)*: Author attribution.
 - `featured` *(boolean, default: `false`)*: Set `true` to highlight on the blog homepage.
 
 > **Automatic Syndication**:

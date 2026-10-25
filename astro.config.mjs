@@ -11,7 +11,7 @@ const isGithubPages = process.env.GITHUB_PAGES === 'true';
 export default defineConfig({
   site: isGithubPages
     ? 'https://ohyash.github.io'
-    : (process.env.PUBLIC_SITE_URL || 'https://finance-compass-web.pages.dev'),
+    : (process.env.PUBLIC_SITE_URL || 'https://paise.fit'),
   base: isGithubPages ? '/finance-compass-web' : '/',
   server: {
     host: true,

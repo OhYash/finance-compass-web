@@ -13,19 +13,22 @@ const rssUrl = `${baseUrl}/rss.xml`;
       <!-- Brand & Manifesto -->
       <div class="md:col-span-2 space-y-4">
         <div class="flex items-center gap-2.5">
-          <div class="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">
-            ₹
+          <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-600 to-teal-500 flex items-center justify-center text-white font-bold text-sm shadow-sm">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M8 18V6.5h4.2a4.5 4.5 0 0 1 4.5 4.5v0a4.5 4.5 0 0 1-4.5 4.5H8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M9.5 11.5l1.8-2 2 2.2 3.2-3.8" stroke="#a7f3d0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
           <span class="font-bold text-zinc-900 dark:text-zinc-100 text-base tracking-tight">
-            INR Finance Compass
+            paise fit
           </span>
         </div>
         <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 max-w-md">
-          A sovereign, private personal finance OS designed for Indian realities. Zero surveillance, zero credit card pitch notifications, client-side statement parsing, and anchor-aware ledger integrity.
+          A cool, welcoming financial fitness companion to help you maintain your finances and plan ambitious life goals. Built India-first with complete deployment flexibility: managed, on-premise, or self-hosted.
         </p>
         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-100/60 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/40">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>100% Self-Hostable &middot; Zero Data Harvesting</span>
+          <span>Managed, On-Premise, or Self-Hosted &middot; Zero Data Harvesting</span>
         </div>
       </div>
 
@@ -36,8 +39,8 @@ const rssUrl = `${baseUrl}/rss.xml`;
         </h4>
         <ul class="space-y-2 text-sm">
           <li><a href={`${homeUrl}#features`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Core Features</a></li>
-          <li><a href={`${homeUrl}#ledger-math`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Anchor Ledger Math</a></li>
-          <li><a href={`${homeUrl}#self-hosting`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Self-Hosting Guide</a></li>
+          <li><a href={`${homeUrl}#goals`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Goal Planning</a></li>
+          <li><a href={`${homeUrl}#deployments`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Flexible Deployments</a></li>
           <li><a href={`${homeUrl}#faq`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Architecture FAQ</a></li>
           <li><a href="https://github.com/OhYash/inr-finance-compass" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">GitHub Repository</a></li>
         </ul>
@@ -46,7 +49,7 @@ const rssUrl = `${baseUrl}/rss.xml`;
       <!-- Blog & Editorial Wedge -->
       <div class="space-y-3">
         <h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-900 dark:text-zinc-200">
-          Sovereign Guides
+          Financial Guides
         </h4>
         <ul class="space-y-2 text-sm">
           <li><a href={blogUrl} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">All Articles & Deep Dives</a></li>
@@ -67,10 +70,10 @@ const rssUrl = `${baseUrl}/rss.xml`;
     <!-- Bottom Bar -->
     <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
       <p>
-        &copy; {new Date().getFullYear()} INR Finance Compass. Licensed under MIT / Sovereign Architecture.
+        &copy; {new Date().getFullYear()} paise fit. Licensed under MIT.
       </p>
       <p class="flex items-center gap-1 text-zinc-500">
-        <span>Engineered for sovereign Indian personal wealth builders.</span>
+        <span>Engineered for personal financial fitness and sovereign wealth building.</span>
       </p>
     </div>
   </div>

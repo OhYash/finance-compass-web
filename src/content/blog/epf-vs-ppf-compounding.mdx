@@ -60,7 +60,7 @@ If you use a cloud-based aggregator that syncs with your EPFO portal or reads yo
 - **Aggregators sum the raw balance**: They pull the total passbook balance (Employee + Employer + Pension) and project future net worth assuming an untaxed 8.25% compound growth.
 - **The TDS surprise**: When you withdraw at retirement or switch employers, EPFO deducts TDS on the taxable bucket. If you haven't accounted for deferred tax liabilities on your sovereign ledger, your reported net worth suffers an artificial phantom drop.
 
-In **INR Finance Compass**, our instrument engine treats EPF as an anchor-aware dual balance:
+In **paise fit**, our instrument engine treats EPF as an anchor-aware dual balance:
 - It tracks the non-taxable base and computes tax liabilities on the spillover.
 - You see your **true economic net worth**, not a naive passbook sum.
 

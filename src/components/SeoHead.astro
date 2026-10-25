@@ -11,8 +11,8 @@ export interface Props {
 }
 
 const {
-  title = 'INR Finance Compass — Sovereign, Private Personal Finance OS',
-  description = 'Sovereign personal finance OS engineered for Indian realities. Zero surveillance, zero data harvesting, anchor-aware ledger integrity, and client-side statement parsing.',
+  title = 'paise fit — Financial Fitness & Goal Planning',
+  description = 'A cool, welcoming financial fitness app to maintain your finances, track net worth, and plan life goals with total privacy.',
   image = '/images/og-default.png',
   canonicalUrl,
   type = 'website',
@@ -20,11 +20,11 @@ const {
   tags = [],
 } = Astro.props;
 
-const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://financecompass.in';
-const currentUrl = canonicalUrl || new URL(Astro.url.pathname, Astro.site || 'https://financecompass.in').href;
-const formattedTitle = title.includes('INR') ? title : `${title} | INR Finance Compass`;
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://paise.fit';
+const currentUrl = canonicalUrl || new URL(Astro.url.pathname, Astro.site || 'https://paise.fit').href;
+const formattedTitle = title.includes('paise fit') ? title : `${title} | paise fit`;
 const ogImageUrl = image.startsWith('http') ? image : `${siteUrl}${image.startsWith('/') ? '' : '/'}${image}`;
-const rssUrl = new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/rss.xml`, Astro.site || 'https://financecompass.in').href;
+const rssUrl = new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/rss.xml`, Astro.site || 'https://paise.fit').href;
 ---
 
 <head>
@@ -37,14 +37,14 @@ const rssUrl = new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/rss.xml`,
   <title>{formattedTitle}</title>
   <meta name="title" content={formattedTitle} />
   <meta name="description" content={description} />
-  <meta name="author" content="INR Finance Compass" />
+  <meta name="author" content="paise fit" />
   {tags.length > 0 && <meta name="keywords" content={tags.join(', ')} />}
 
   <!-- Canonical URL -->
   <link rel="canonical" href={currentUrl} />
 
   <!-- RSS Feed Auto-Discovery -->
-  <link rel="alternate" type="application/rss+xml" title="INR Finance Compass Blog" href={rssUrl} />
+  <link rel="alternate" type="application/rss+xml" title="paise fit Blog" href={rssUrl} />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content={type} />

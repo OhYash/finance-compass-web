@@ -1,6 +1,6 @@
-# INR Finance Compass — Website & Sovereign Blog
+# paise fit — Website & Financial Fitness Blog
 
-> Public marketing landing page, early-access waitlist, and SEO-optimized Indian personal finance blog with interactive MDX calculators for **INR Finance Compass**.
+> Public marketing landing page, early-access waitlist, and personal finance blog with interactive MDX calculators for **paise fit** (`paise.fit`).
 
 ---
 
@@ -105,7 +105,7 @@ When deploying to **Cloudflare Pages**:
 2. Add the following production variables:
    - `RESEND_API_KEY`: Your Resend API key (`re_...`).
    - `RESEND_AUDIENCE_ID` *(optional)*: Your Resend Audience ID to automatically collect contacts into a mailing list.
-   - `RESEND_FROM_EMAIL`: Verified sender email (e.g. `INR Finance Compass <waitlist@yourdomain.com>`).
+   - `RESEND_FROM_EMAIL`: Verified sender email (e.g. `paise fit <waitlist@paise.fit>`).
    - `NOTIFY_ADMIN_EMAIL` *(optional)*: Email address to receive signup alerts.
 
 *Note: In local development or when `RESEND_API_KEY` is omitted, the waitlist form automatically runs in mock mode with instant user feedback.*

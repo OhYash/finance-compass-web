@@ -10,7 +10,7 @@ const blog = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
-    author: z.string().default('INR Finance Compass Team'),
+    author: z.string().default('paise fit Team'),
     ogImage: z.string().optional(),
     featured: z.boolean().default(false),
   }),

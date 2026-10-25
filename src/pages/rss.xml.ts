@@ -7,9 +7,9 @@ export async function GET(context: APIContext) {
   const siteBase = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   return rss({
-    title: 'INR Finance Compass — Sovereign Indian Wealth Blog',
-    description: 'Pragmatic Indian personal finance deep dives with zero surveillance, zero fluff, and mathematical precision.',
-    site: context.site || 'https://financecompass.in',
+    title: 'paise fit — Wealth & Financial Fitness Blog',
+    description: 'Pragmatic personal finance and goal planning guides with zero surveillance, zero fluff, and mathematical precision.',
+    site: context.site || 'https://paise.fit',
     items: blog
       .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
       .map((post) => ({

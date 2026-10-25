@@ -11,18 +11,19 @@ const blogUrl = `${baseUrl}/blog`;
   <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
     <!-- Brand Logo -->
     <a href={homeUrl} class="flex items-center gap-2.5 group">
-      <div class="w-8 h-8 rounded-lg bg-emerald-600 dark:bg-emerald-500 flex items-center justify-center text-white font-bold text-lg shadow-sm shadow-emerald-500/20 group-hover:scale-105 transition-transform">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10" />
-          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-sm shadow-emerald-500/20 group-hover:scale-105 transition-transform">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" stroke-dasharray="38 12" opacity="0.45" />
+          <path d="M8 18V6.5h4.2a4.5 4.5 0 0 1 4.5 4.5v0a4.5 4.5 0 0 1-4.5 4.5H8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M9.5 11.5l1.8-2 2 2.2 3.2-3.8" stroke="#a7f3d0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </div>
       <div class="flex flex-col">
         <span class="font-bold text-zinc-900 dark:text-zinc-100 tracking-tight leading-none text-base">
-          INR Compass
+          paise fit
         </span>
         <span class="text-[10px] uppercase font-mono tracking-wider text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">
-          Sovereign Wealth OS
+          Financial Fitness
         </span>
       </div>
     </a>
@@ -32,11 +33,11 @@ const blogUrl = `${baseUrl}/blog`;
       <a href={`${homeUrl}#features`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
         Features
       </a>
-      <a href={`${homeUrl}#ledger-math`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-        The Math
+      <a href={`${homeUrl}#goals`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+        Goal Planning
       </a>
-      <a href={`${homeUrl}#self-hosting`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-        Self-Hosting
+      <a href={`${homeUrl}#deployments`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+        Deployments
       </a>
       <a href={blogUrl} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
         Blog & Guides
@@ -88,8 +89,8 @@ const blogUrl = `${baseUrl}/blog`;
   <!-- Mobile Dropdown Menu -->
   <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 flex flex-col gap-3 text-sm font-medium text-zinc-700 dark:text-zinc-200">
     <a href={`${homeUrl}#features`} class="py-2 hover:text-emerald-600 dark:hover:text-emerald-400">Features</a>
-    <a href={`${homeUrl}#ledger-math`} class="py-2 hover:text-emerald-600 dark:hover:text-emerald-400">The Math</a>
-    <a href={`${homeUrl}#self-hosting`} class="py-2 hover:text-emerald-600 dark:hover:text-emerald-400">Self-Hosting</a>
+    <a href={`${homeUrl}#goals`} class="py-2 hover:text-emerald-600 dark:hover:text-emerald-400">Goal Planning</a>
+    <a href={`${homeUrl}#deployments`} class="py-2 hover:text-emerald-600 dark:hover:text-emerald-400">Deployments</a>
     <a href={blogUrl} class="py-2 hover:text-emerald-600 dark:hover:text-emerald-400">Blog & Guides</a>
     <a href={`${homeUrl}#faq`} class="py-2 hover:text-emerald-600 dark:hover:text-emerald-400">FAQ</a>
     <div class="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between">

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://paise.fit/sitemap-index.xml

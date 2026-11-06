@@ -121,7 +121,7 @@ title: "Understanding Sovereign Gold Bonds vs Physical Gold"
 description: "Why the 2.50% semi-annual RBI coupon and tax-free redemption at maturity make SGBs mathematically superior to digital gold."
 pubDate: 2026-09-08
 tags: ["Gold", "SGB", "Taxation", "Sovereign Wealth"]
-author: "Yash Sharma"
+author: "Yash Yadav"
 featured: true
 ---
 import CompoundCalc from '../../components/widgets/CompoundCalc';

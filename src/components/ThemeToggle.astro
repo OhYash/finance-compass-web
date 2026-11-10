@@ -44,7 +44,8 @@
 <script>
   function setupThemeToggle() {
     const toggle = document.getElementById('theme-toggle');
-    if (!toggle) return;
+    if (!toggle || toggle.dataset.bound) return;
+    toggle.dataset.bound = 'true';
 
     toggle.addEventListener('click', () => {
       const isDark = document.documentElement.classList.contains('dark');
@@ -57,6 +58,17 @@
       }
     });
   }
+
+  // Listen for system theme changes if user hasn't explicitly set a preference
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      if (e.matches) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+  });
 
   // Setup on initial load and view transitions if added later
   setupThemeToggle();

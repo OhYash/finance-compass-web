@@ -49,6 +49,8 @@ const formattedUpdated = updatedDate
   image={ogImage}
   type="article"
   publishedTime={pubDate.toISOString()}
+  updatedTime={updatedDate ? updatedDate.toISOString() : undefined}
+  author={author}
   tags={tags}
 >
   <!-- Reading Progress Bar -->
@@ -58,18 +60,32 @@ const formattedUpdated = updatedDate
   ></div>
 
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
-    <!-- Back to Blog Link -->
-    <div class="mb-8">
-      <a
-        href={blogUrl}
-        class="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group"
-      >
-        <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5m7 7-7-7 7-7"/>
-        </svg>
-        <span>Back to Blog & Guides</span>
-      </a>
-    </div>
+    <!-- Back to Blog Link / Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-8">
+      <ol class="flex items-center gap-2 text-xs font-semibold text-zinc-500">
+        <li>
+          <a
+            href={baseUrl || '/'}
+            class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+          >
+            Home
+          </a>
+        </li>
+        <li class="text-zinc-400">/</li>
+        <li>
+          <a
+            href={blogUrl}
+            class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+          >
+            Blog
+          </a>
+        </li>
+        <li class="text-zinc-400">/</li>
+        <li class="text-zinc-400 dark:text-zinc-500 truncate max-w-xs" aria-current="page">
+          {title}
+        </li>
+      </ol>
+    </nav>
 
     <!-- Article Header -->
     <header class="space-y-4 pb-8 border-b border-zinc-200 dark:border-zinc-800">

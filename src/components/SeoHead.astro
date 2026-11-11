@@ -7,7 +7,10 @@ export interface Props {
   canonicalUrl?: string;
   type?: 'website' | 'article';
   publishedTime?: string;
+  updatedTime?: string;
+  author?: string;
   tags?: string[];
+  schema?: Record<string, any> | Array<Record<string, any>>;
 }
 
 const {
@@ -17,7 +20,10 @@ const {
   canonicalUrl,
   type = 'website',
   publishedTime,
+  updatedTime,
+  author = 'paise fit',
   tags = [],
+  schema,
 } = Astro.props;
 
 const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://paise.fit';
@@ -25,6 +31,58 @@ const currentUrl = canonicalUrl || new URL(Astro.url.pathname, Astro.site || 'ht
 const formattedTitle = title.includes('paise fit') ? title : `${title} | paise fit`;
 const ogImageUrl = image.startsWith('http') ? image : `${siteUrl}${image.startsWith('/') ? '' : '/'}${image}`;
 const rssUrl = new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/rss.xml`, Astro.site || 'https://paise.fit').href;
+
+// Default structured data: Organization and WebSite
+const defaultSchemas: Array<Record<string, any>> = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
+    name: 'paise fit',
+    url: siteUrl,
+    logo: `${siteUrl}/favicon.svg`,
+    description: 'India-First Personal Finance & Sovereign Wealth Tracker.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    url: siteUrl,
+    name: 'paise fit',
+    publisher: {
+      '@id': `${siteUrl}/#organization`,
+    },
+  },
+];
+
+if (type === 'article') {
+  defaultSchemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': currentUrl,
+    },
+    headline: title,
+    description: description,
+    image: ogImageUrl,
+    author: {
+      '@type': 'Person',
+      name: author,
+    },
+    publisher: {
+      '@id': `${siteUrl}/#organization`,
+    },
+    datePublished: publishedTime,
+    ...(updatedTime ? { dateModified: updatedTime } : (publishedTime ? { dateModified: publishedTime } : {})),
+    ...(tags.length > 0 ? { keywords: tags.join(', ') } : {}),
+  });
+}
+
+// Allow page-specific schemas to override or augment
+const computedSchemas = schema
+  ? (Array.isArray(schema) ? schema : [schema])
+  : defaultSchemas;
 ---
 
 <head>
@@ -37,7 +95,7 @@ const rssUrl = new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/rss.xml`,
   <title>{formattedTitle}</title>
   <meta name="title" content={formattedTitle} />
   <meta name="description" content={description} />
-  <meta name="author" content="paise fit" />
+  <meta name="author" content={author} />
   {tags.length > 0 && <meta name="keywords" content={tags.join(', ')} />}
 
   <!-- Canonical URL -->
@@ -53,6 +111,7 @@ const rssUrl = new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/rss.xml`,
   <meta property="og:description" content={description} />
   <meta property="og:image" content={ogImageUrl} />
   {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+  {updatedTime && <meta property="article:modified_time" content={updatedTime} />}
 
   <!-- Twitter / X -->
   <meta property="twitter:card" content="summary_large_image" />
@@ -60,6 +119,11 @@ const rssUrl = new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/rss.xml`,
   <meta property="twitter:title" content={formattedTitle} />
   <meta property="twitter:description" content={description} />
   <meta property="twitter:image" content={ogImageUrl} />
+
+  <!-- Structured Data / JSON-LD -->
+  {computedSchemas.map((s) => (
+    <script type="application/ld+json" set:html={JSON.stringify(s)} />
+  ))}
 
   <!-- Theme Color and Script to prevent FOUC -->
   <meta name="color-scheme" content="light dark" />

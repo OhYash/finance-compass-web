@@ -30,15 +30,49 @@ const blogUrl = `${baseUrl}/blog`;
 
     <!-- Desktop Navigation -->
     <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-zinc-600 dark:text-zinc-300">
-      <a href={`${homeUrl}#features`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-        Features
-      </a>
-      <a href={`${homeUrl}#goals`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-        Goal Planning
-      </a>
-      <a href={`${homeUrl}#deployments`} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-        Deployments
-      </a>
+      <!-- Features Dropdown Group -->
+      <div class="relative group/dropdown py-4 flex items-center">
+        <a
+          href={`${homeUrl}#features`}
+          class="flex items-center gap-1 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+        >
+          <span>Features</span>
+          <svg
+            class="w-3.5 h-3.5 transition-transform duration-200 group-hover/dropdown:rotate-180 text-zinc-400 group-hover/dropdown:text-emerald-600 dark:group-hover/dropdown:text-emerald-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2.2"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </a>
+
+        <!-- Dropdown Menu -->
+        <div
+          class="absolute top-[calc(100%-8px)] left-0 w-48 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xl shadow-zinc-900/5 dark:shadow-black/40 py-1.5 opacity-0 invisible translate-y-1 group-hover/dropdown:opacity-100 group-hover/dropdown:visible group-hover/dropdown:translate-y-0 group-focus-within/dropdown:opacity-100 group-focus-within/dropdown:visible group-focus-within/dropdown:translate-y-0 transition-all duration-150 z-50"
+        >
+          <a
+            href={`${homeUrl}#features`}
+            class="block px-3.5 py-2 text-xs font-medium text-zinc-700 dark:text-zinc-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+          >
+            All Features
+          </a>
+          <a
+            href={`${homeUrl}#goals`}
+            class="block px-3.5 py-2 text-xs font-medium text-zinc-700 dark:text-zinc-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+          >
+            Goal Planning
+          </a>
+          <a
+            href={`${homeUrl}#deployments`}
+            class="block px-3.5 py-2 text-xs font-medium text-zinc-700 dark:text-zinc-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+          >
+            Deployments
+          </a>
+        </div>
+      </div>
+
       <a href={blogUrl} class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
         Blog & Guides
       </a>
@@ -74,12 +108,16 @@ const blogUrl = `${baseUrl}/blog`;
   </div>
 
   <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 flex flex-col gap-3 text-sm font-medium text-zinc-700 dark:text-zinc-200">
-    <a href={`${homeUrl}#features`} class="py-2 hover:text-emerald-600 dark:hover:text-emerald-400">Features</a>
-    <a href={`${homeUrl}#goals`} class="py-2 hover:text-emerald-600 dark:hover:text-emerald-400">Goal Planning</a>
-    <a href={`${homeUrl}#deployments`} class="py-2 hover:text-emerald-600 dark:hover:text-emerald-400">Deployments</a>
-    <a href={blogUrl} class="py-2 hover:text-emerald-600 dark:hover:text-emerald-400">Blog & Guides</a>
-    <a href={`${homeUrl}#faq`} class="py-2 hover:text-emerald-600 dark:hover:text-emerald-400">FAQ</a>
+  <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 flex flex-col gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-200">
+    <div class="py-1">
+      <a href={`${homeUrl}#features`} class="block py-1.5 hover:text-emerald-600 dark:hover:text-emerald-400">Features</a>
+      <div class="pl-4 flex flex-col gap-1 border-l-2 border-zinc-100 dark:border-zinc-800 ml-1 mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+        <a href={`${homeUrl}#goals`} class="py-1 hover:text-emerald-600 dark:hover:text-emerald-400">Goal Planning</a>
+        <a href={`${homeUrl}#deployments`} class="py-1 hover:text-emerald-600 dark:hover:text-emerald-400">Deployments</a>
+      </div>
+    </div>
+    <a href={blogUrl} class="py-1.5 hover:text-emerald-600 dark:hover:text-emerald-400">Blog & Guides</a>
+    <a href={`${homeUrl}#faq`} class="py-1.5 hover:text-emerald-600 dark:hover:text-emerald-400">FAQ</a>
     <div class="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-end">
       <a href={`${homeUrl}#waitlist`} class="px-4 py-2 rounded-lg text-xs font-semibold bg-emerald-600 text-white">Join Waitlist</a>
     </div>
@@ -104,6 +142,27 @@ const blogUrl = `${baseUrl}/blog`;
     });
   }
 
-  setupMobileMenu();
-  document.addEventListener('astro:after-swap', setupMobileMenu);
+  function setupWaitlistScroll() {
+    document.querySelectorAll('a[href*="#waitlist"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const target = document.getElementById('waitlist');
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          const input = target.querySelector('input[type="email"]') as HTMLInputElement | null;
+          if (input) {
+            setTimeout(() => input.focus({ preventScroll: true }), 400);
+          }
+        }
+      });
+    });
+  }
+
+  function setupHeader() {
+    setupMobileMenu();
+    setupWaitlistScroll();
+  }
+
+  setupHeader();
+  document.addEventListener('astro:after-swap', setupHeader);
 </script>

@@ -96,14 +96,14 @@ const endpointUrl = `${baseUrl}/api/waitlist`;
 
           if (response && response.ok) {
             const data = await response.json();
-            showSuccess(data.message || "You're on the list! We've saved your spot for early access.");
+            showSuccess(data.message || "You're on the list! We'll notify you first as soon as paise fit is ready for use.");
             form.reset();
           } else if (response && !response.ok) {
             const errData = await response.json().catch(() => ({}));
             showError(errData.error || 'Unable to join waitlist right now. Please try again.');
           } else {
             // Graceful fallback for preview/static deployment without edge functions active yet
-            showSuccess("You're on the list! We've reserved your early access spot.");
+            showSuccess("You're on the list! We'll notify you first as soon as paise fit is ready for use.");
             form.reset();
           }
         } catch (err: any) {

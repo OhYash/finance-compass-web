@@ -176,7 +176,7 @@ export const onRequestPost = async (context: { request: Request; env: Env }) => 
     return new Response(
       JSON.stringify({
         success: true,
-        message: "You're on the list! Check your inbox for confirmation.",
+        message: "You're on the list! We'll notify you first as soon as paise fit is ready for use.",
       }),
       { status: 200, headers }
     );
